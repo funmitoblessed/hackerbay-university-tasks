@@ -1,2 +1,9 @@
 {{!-- inject status as response into body of the index --}}
-<h1>{{ status }}</h1>
+<h1>Welcome to my Home Page</h1>
+
+<h2>{{ status }}</h2>
+
+<form action="/data" method="post">
+    <input type="text" name="data">
+    <button type="submit">Click Me</button>
+</form>
