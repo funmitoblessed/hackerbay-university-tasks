@@ -9,16 +9,8 @@ router.get('/', function(req, res, next) {
 
 // Create POST API
 router.post('/data', function(req, res, next) {
-    // var data = req.body.data;
-    // var anyString = req.body.anyString;
-    res.redirect(200, '/data')
+    var data = req.body.anyString;
+    res.render('data', { data })
 });
-
-// GET Request to get the data saved with POST
-router.get('/data', function(req, res, next) {
-    res.render('data', { title: 'Get Request', data: 'My name is Funmito' });
-});
-
-
 
 module.exports = router;
