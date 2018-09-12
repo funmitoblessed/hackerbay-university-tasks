@@ -1,27 +1,40 @@
 {
-    "name": "task-1-node-with-express",
-    "version": "0.0.0",
-    "private": true,
-    "scripts": {
-        "start": "node ./bin/www"
-    },
-    "dependencies": {
-        "cookie-parser": "~1.4.3",
-        "debug": "~2.6.9",
-        "express": "~4.16.0",
-        "express-handlebars": "^3.0.0",
-        "http-errors": "~1.6.2",
-        "morgan": "~1.9.0",
-        "bcryptjs": "*",
-        "body-parser": "*",
-        "connect-flash": "*",
-        "express-messages": "*",
-        "express-session": "*",
-        "express-validator": "*",
-        "mongodb": "*",
-        "mongoose": "*",
-        "passport": "*",
-        "passport-http": "*",
-        "passport-local": "*"
-    }
+  "name": "task-1-node-with-express",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "express-handlebars": "^3.0.0",
+    "http-errors": "~1.6.2",
+    "morgan": "~1.9.0",
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "connect-flash": "*",
+    "express-messages": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "mongodb": "*",
+    "mongoose": "*",
+    "passport": "*",
+    "passport-http": "*",
+    "passport-local": "*"
+  },
+  "description": "Repo for tasks from Hackerbay University",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ofunmito/hackerbay-university-tasks.git"
+  },
+  "author": "Funmito Blessed",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ofunmito/hackerbay-university-tasks/issues"
+  },
+  "homepage": "https://github.com/ofunmito/hackerbay-university-tasks#readme"
 }
