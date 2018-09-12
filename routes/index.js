@@ -4,7 +4,7 @@ const router = express.Router();
 
 /* GET default page and return {status: success} */
 router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Working with Handlebars', status: 'success' });
+    res.render('index', { title: 'Simple Login API', status: 'success' });
 });
 
 // Create POST API and return data from body
