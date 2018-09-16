@@ -12,6 +12,8 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/hbusimpleloginapp', { useNewUrlParser: true });
+var db = mongoose.connection;
 
 const Sequelize = require('sequelize');
 
@@ -22,30 +24,12 @@ const sequelize = new Sequelize('blessed', 'blessed', 'mvfDB918', {
 
 // create and define model
 // model takes two arguments - the name of the model and an object representing its properties
-var Article = sequelize.define('article', {
-    title: Sequelize.STRING,
-    body: Sequelize.TEXT
-});
-
-// synchronizes model and database
-sequelize.sync().then(function() {
-    Article.create({ // insert new record into our table using create
-        title: 'demo',
-        body: 'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.'
-    });
-});
-
-// retrieve a particular record using its id
-sequelize.sync().then(function() {
-    Article.findById(2).then(function(article) {
-        console.log(article.dataValues);
-    });
-});
 
 
 
-// mongoose.connect('mongodb://localhost/hbusimpleloginapp', { useNewUrlParser: true });
-// var db = mongoose.connection;
+
+
+
 
 var routes = require('./routes/index');
 var user = require('./routes/user');

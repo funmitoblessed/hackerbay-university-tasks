@@ -15,7 +15,7 @@ router.get('/login', function(req, res, next) {
     res.render('login');
 });
 
-// New User Signup
+// New User Signup POST API
 router.post('/signup', function(req, res) {
     var name = req.body.name;
     var email = req.body.email;
@@ -102,6 +102,8 @@ router.post('/signup', function(req, res) {
     }
 });
 
+
+// gets username and finds if it already exists. Also validates password
 passport.use(new LocalStrategy(
     function(username, password, done) {
         User.getUserByUsername(username, function(err, user) {
