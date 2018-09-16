@@ -6,23 +6,26 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "connect-flash": "*",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",
     "express-handlebars": "^3.0.0",
-    "http-errors": "~1.6.2",
-    "morgan": "~1.9.0",
-    "bcryptjs": "*",
-    "body-parser": "*",
-    "connect-flash": "*",
     "express-messages": "*",
     "express-session": "*",
     "express-validator": "*",
+    "http-errors": "~1.6.2",
     "mongodb": "*",
     "mongoose": "*",
+    "morgan": "~1.9.0",
     "passport": "*",
     "passport-http": "*",
-    "passport-local": "*"
+    "passport-local": "*",
+    "pg": "^7.4.3",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.38.1"
   },
   "description": "Repo for tasks from Hackerbay University",
   "main": "app.js",
@@ -36,5 +39,6 @@
   "bugs": {
     "url": "https://github.com/ofunmito/hackerbay-university-tasks/issues"
   },
-  "homepage": "https://github.com/ofunmito/hackerbay-university-tasks#readme"
+  "homepage": "https://github.com/ofunmito/hackerbay-university-tasks#readme",
+  "keywords": []
 }

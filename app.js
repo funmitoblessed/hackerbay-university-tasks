@@ -13,15 +13,46 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/hbusimpleloginapp', { useNewUrlParser: true });
-var db = mongoose.connection;
+const Sequelize = require('sequelize');
+
+const sequelize = new Sequelize('blessed', 'blessed', 'mvfDB918', {
+    host: 'localhost',
+    dialect: 'postgres'
+});
+
+// create and define model
+// model takes two arguments - the name of the model and an object representing its properties
+var Article = sequelize.define('article', {
+    title: Sequelize.STRING,
+    body: Sequelize.TEXT
+});
+
+// synchronizes model and database
+sequelize.sync().then(function() {
+    Article.create({ // insert new record into our table using create
+        title: 'demo',
+        body: 'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.'
+    });
+});
+
+// retrieve a particular record using its id
+sequelize.sync().then(function() {
+    Article.findById(2).then(function(article) {
+        console.log(article.dataValues);
+    });
+});
+
+
+
+// mongoose.connect('mongodb://localhost/hbusimpleloginapp', { useNewUrlParser: true });
+// var db = mongoose.connection;
 
 var routes = require('./routes/index');
 var user = require('./routes/user');
 
 var app = express();
 
-// view engine setup
+// // view engine setup
 app.engine('hbs', hbs({ extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/views/layouts/' })); // specify extension of files and default layout folder
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
