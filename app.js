@@ -1,5 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
+var jwt = require('jsonwebtoken');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -94,6 +95,9 @@ app.use(function(req, res, next) {
 
 app.use('/', routes);
 app.use('/user', user);
+
+var port = '3000'
+app.set('port', port);
 
 app.listen(app.get('port'), function() {
     console.log('Server started on port ' + app.get('port'));
