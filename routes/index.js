@@ -7,19 +7,10 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
     res.render('index', { title: 'Simple Login API', status: 'success' });
 });
 
-function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    } else {
-        // req.flash('error_msg', 'You are not logged in');
-        res.redirect('/user/login');
-    }
-}
-
-// Create POST API and return data from body
+// Create POST API
 router.post('/data', function(req, res, next) {
-    var data = req.body.data;
-    res.json({ data: data });
+    var data = req.body.anyString;
+    res.render('data', { data })
 });
 
 module.exports = router;
