@@ -27,11 +27,6 @@ const sequelize = new Sequelize('blessed', 'blessed', 'mvfDB918', {
 // model takes two arguments - the name of the model and an object representing its properties
 
 
-
-
-
-
-
 var routes = require('./routes/index');
 var user = require('./routes/user');
 
