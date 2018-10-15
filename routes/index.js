@@ -3,14 +3,14 @@ const router = express.Router();
 
 
 /* GET default page and return {status: success} */
-router.get('/', ensureAuthenticated, function(req, res, next) {
-    res.render('index', { title: 'Simple Login API', status: 'success' });
+router.get('/', function(req, res, next) {
+    res.render('index', { title: 'First APIs', status: 'success' });
 });
 
-// Create POST API
+// Create POST API and return data from body
 router.post('/data', function(req, res, next) {
-    var data = req.body.anyString;
-    res.render('data', { data })
+    var data = req.body.data;
+    res.json({ data: data });
 });
 
 module.exports = router;
