@@ -12,5 +12,19 @@
     "express-handlebars": "^3.0.0",
     "http-errors": "~1.6.2",
     "morgan": "~1.9.0"
-  }
+  },
+  "description": "## Task 1 - First API",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ofunmito/hackerbay-university-tasks.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ofunmito/hackerbay-university-tasks/issues"
+  },
+  "homepage": "https://github.com/ofunmito/hackerbay-university-tasks#readme"
 }
