@@ -1,16 +1,18 @@
-const express = require('express');
-const router = express.Router();
+var express = require('express');
+var router = express.Router();
 
-
-/* GET default page and return {status: success} */
-router.get('/', function(req, res, next) {
-    res.render('index', { title: 'First APIs', status: 'success' });
+// Get Homepage
+router.get('/', ensureAuthenticated, function(req, res) {
+    res.render('index');
 });
 
-// Create POST API and return data from body
-router.post('/data', function(req, res, next) {
-    var data = req.body.data;
-    res.json({ data: data });
-});
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    } else {
+        // req.flash('error_msg', 'You are not logged in');
+        res.redirect('/user/login');
+    }
+}
 
 module.exports = router;

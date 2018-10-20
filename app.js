@@ -20,7 +20,7 @@ const client = new pg.Client(connection);
 client.connect();
 
 const index = require('./routes/index');
-const users = require('./routes/users');
+const user = require('./routes/user');
 
 // Initialize app
 const app = express();
@@ -84,7 +84,7 @@ app.use(function(req, res, next) {
 
 // Middleware for route files
 app.use('/', index);
-app.use('/users', users);
+app.use('/user', user);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
