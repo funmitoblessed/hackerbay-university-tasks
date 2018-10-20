@@ -116,7 +116,7 @@ router.get('/logout', function(req, res) {
 
 passport.use(new LocalStrategy(
     function(email, password, done) {
-        User.getUserByEmail(email, function(err, user) {
+        User.getUserByUsername(email, function(err, user) {
             if (err) throw err;
             if (!user) {
                 return done(null, false, { message: 'Unknown User' });
