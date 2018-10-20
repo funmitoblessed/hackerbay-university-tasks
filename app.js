@@ -13,11 +13,11 @@ const LocalStrategy = require('passport-local').Strategy;
 const pg = require('pg'); // require postgres dependency
 
 // Connection for postgres
-const connection = "postgres://blessed:mvfDB918@postgres/localhost:5432/blessed";
+const connection = process.env.DATABASE_URL || 'postgres://localhost:5432/blessed';
 // Instantiate Client for postgres database
-const pgClient = new pg.Client(connection);
+const client = new pg.Client(connection);
 // Connect to the client
-pgClient.connect();
+client.connect();
 
 const index = require('./routes/index');
 
