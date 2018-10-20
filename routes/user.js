@@ -23,6 +23,7 @@ router.post('/signup', function(req, res) {
     let password = req.body.password;
     let password2 = req.body.password2;
 
+    console.log(email, password);
 
     // Validation
     req.checkBody('email', 'Email is required').notEmpty();
@@ -36,7 +37,6 @@ router.post('/signup', function(req, res) {
         res.render('signup', {
             errors: errors
         });
-        console.log('You have an error!')
     } else {
         let newUser = new User({
             email: email,
@@ -51,72 +51,14 @@ router.post('/signup', function(req, res) {
         req.flash('success_msg', 'You are registered and can now login');
 
         res.redirect('/user/login');
-        console.log('No Errors!')
-    }
+    };
 
-    console.log(email, password);
 });
 
-
-router.post('/login',
-    passport.authenticate('local', { successRedirect: '/', failureRedirect: '/user/login', failureFlash: true }),
-    function(req, res) {
-        res.redirect('/');
-    });
-
-router.get('/logout', function(req, res) {
-    req.logout();
-
-    req.flash('success_msg', 'You are logged out');
-
-    res.redirect('/user/login');
-});
-
-//     if (errors) {
-//         res.render('signup', {
-//             errors: errors
-//         });
-//     } else {
-//         //checking for email and username are already taken
-//         User.findOne({
-//             username: {
-//                 "$regex": "^" + username + "\\b",
-//                 "$options": "i"
-//             }
-//         }, function(err, user) {
-//             User.findOne({
-//                 email: {
-//                     "$regex": "^" + email + "\\b",
-//                     "$options": "i"
-//                 }
-//             }, function(err, mail) {
-//                 if (user || mail) {
-//                     res.render('signup', {
-//                         user: user,
-//                         mail: mail
-//                     });
-//                 } else {
-//                     let newUser = new User({
-//                         name: name,
-//                         email: email,
-//                         username: username,
-//                         password: password
-//                     });
-//                     User.createUser(newUser, function(err, user) {
-//                         if (err) throw err;
-//                         console.log(user);
-//                     });
-//                     req.flash('success_msg', 'You are registered and can now login');
-//                     res.redirect('/user/login');
-//                 }
-//             });
-//         });
-//     }
-// });
 
 passport.use(new LocalStrategy(
     function(email, password, done) {
-        User.getUserByUsername(email, function(err, user) {
+        User.getUserByEmail(email, function(err, user) {
             if (err) throw err;
             if (!user) {
                 return done(null, false, { message: 'Unknown User' });
@@ -133,6 +75,21 @@ passport.use(new LocalStrategy(
         });
     }));
 
+router.post('/login',
+    passport.authenticate('local', { successRedirect: '/', failureRedirect: '/user/login', failureFlash: true }),
+    function(req, res) {
+        res.redirect('/');
+    });
+
+router.get('/logout', function(req, res) {
+    req.logout();
+
+    req.flash('success_msg', 'You are logged out');
+
+    res.redirect('/user/login');
+});
+
+
 passport.serializeUser(function(user, done) {
     done(null, user.id);
 });
@@ -144,6 +101,43 @@ passport.deserializeUser(function(id, done) {
 });
 
 
-
-
 module.exports = router;
+
+// if (errors) {
+//     res.render('signup', {
+//         errors: errors
+//     });
+// } else {
+//     //checking for email and username are already taken
+//     User.findOne({
+//         email: {
+//             "$regex": "^" + email + "\\b",
+//             "$options": "i"
+//         }
+//     }, function(err, user) {
+//         User.findOne({
+//             email: {
+//                 "$regex": "^" + email + "\\b",
+//                 "$options": "i"
+//             }
+//         }, function(err, mail) {
+//             if (user || mail) {
+//                 res.render('signup', {
+//                     user: user,
+//                     mail: mail
+//                 });
+//             } else {
+//                 let newUser = new User({
+//                     email: email,
+//                     password: password
+//                 });
+//                 User.createUser(newUser, function(err, user) {
+//                     if (err) throw err;
+//                     console.log(user);
+//                 });
+//                 req.flash('success_msg', 'You are registered and can now login');
+//                 res.redirect('/user/login');
+//             }
+//         });
+//     });
+// }
