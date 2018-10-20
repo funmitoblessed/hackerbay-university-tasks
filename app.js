@@ -10,6 +10,7 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const Sequelize = require('sequelize');
 const pg = require('pg'); // require postgres dependency
 
 // Connection for postgres
@@ -103,3 +104,27 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+// define new Sequelize connection and create table in database for storing user info
+const sequelize = new Sequelize('blessed', 'blessed', 'mvfDB918', {
+    host: 'localhost',
+    dialect: 'postgres'
+});
+
+// create Table
+let Table = sequelize.define('userinfo', {
+    // the value of each property must be the data type it represents
+    email: {
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false
+    },
+    password: {
+        type: Sequelize.TEXT,
+    }
+}, {
+    // disable timestamps option
+    timestamps: false
+});
+
+sequelize.sync();
