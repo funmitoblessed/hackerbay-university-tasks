@@ -23,6 +23,27 @@ client.connect();
 const index = require('./routes/index');
 const user = require('./routes/user');
 
+// define new Sequelize connection and create table in database for storing user info
+const sequelize = new Sequelize('blessed', 'blessed', 'mvfDB918', {
+    host: 'localhost',
+    dialect: 'postgres'
+});
+
+// create Table
+let Table = sequelize.define('userinfo', {
+    // the value of each property must be the data type it represents
+    email: {
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false
+    },
+    password: {
+        type: Sequelize.TEXT,
+    }
+});
+
+sequelize.sync();
+
 // Initialize app
 const app = express();
 
@@ -104,24 +125,3 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
-
-// define new Sequelize connection and create table in database for storing user info
-// const sequelize = new Sequelize('blessed', 'blessed', 'mvfDB918', {
-//     host: 'localhost',
-//     dialect: 'postgres'
-// });
-
-// // create Table
-// let Table = sequelize.define('userinfo', {
-//     // the value of each property must be the data type it represents
-//     email: {
-//         type: Sequelize.STRING,
-//         unique: true,
-//         allowNull: false
-//     },
-//     password: {
-//         type: Sequelize.TEXT,
-//     }
-// });
-
-// sequelize.sync();
