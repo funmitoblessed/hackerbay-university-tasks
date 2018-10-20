@@ -19,18 +19,14 @@ router.get('/login', function(req, res) {
 
 // Register User
 router.post('/signup', function(req, res) {
-    let name = req.body.name;
     let email = req.body.email;
-    let username = req.body.username;
     let password = req.body.password;
     let password2 = req.body.password2;
 
 
     // Validation
-    req.checkBody('name', 'Name is required').notEmpty();
     req.checkBody('email', 'Email is required').notEmpty();
     req.checkBody('email', 'Email is not valid').isEmail();
-    req.checkBody('username', 'Username is required').notEmpty();
     req.checkBody('password', 'Password is required').notEmpty();
     req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
 
@@ -40,11 +36,10 @@ router.post('/signup', function(req, res) {
         res.render('signup', {
             errors: errors
         });
+        console.log('You have an error!')
     } else {
         let newUser = new User({
-            name: name,
             email: email,
-            username: username,
             password: password
         });
 
@@ -56,9 +51,25 @@ router.post('/signup', function(req, res) {
         req.flash('success_msg', 'You are registered and can now login');
 
         res.redirect('/user/login');
+        console.log('No Errors!')
     }
 
-    console.log(name, email, username, password);
+    console.log(email, password);
+});
+
+
+router.post('/login',
+    passport.authenticate('local', { successRedirect: '/', failureRedirect: '/user/login', failureFlash: true }),
+    function(req, res) {
+        res.redirect('/');
+    });
+
+router.get('/logout', function(req, res) {
+    req.logout();
+
+    req.flash('success_msg', 'You are logged out');
+
+    res.redirect('/user/login');
 });
 
 //     if (errors) {
@@ -104,8 +115,8 @@ router.post('/signup', function(req, res) {
 // });
 
 passport.use(new LocalStrategy(
-    function(username, password, done) {
-        User.getUserByUsername(username, function(err, user) {
+    function(email, password, done) {
+        User.getUserByEmail(email, function(err, user) {
             if (err) throw err;
             if (!user) {
                 return done(null, false, { message: 'Unknown User' });
@@ -133,18 +144,6 @@ passport.deserializeUser(function(id, done) {
 });
 
 
-router.post('/login',
-    passport.authenticate('local', { successRedirect: '/', failureRedirect: '/user/login', failureFlash: true }),
-    function(req, res) {
-        res.redirect('/');
-    });
 
-router.get('/logout', function(req, res) {
-    req.logout();
-
-    req.flash('success_msg', 'You are logged out');
-
-    res.redirect('/user/login');
-});
 
 module.exports = router;
