@@ -40,6 +40,9 @@ let Table = sequelize.define('userinfo', {
     password: {
         type: Sequelize.TEXT,
     }
+}, {
+    // disable timestamps option
+    timestamps: false
 });
 
 sequelize.sync();
