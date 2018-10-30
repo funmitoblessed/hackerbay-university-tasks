@@ -1,73 +1,31 @@
-# hackerbay-university-tasks 
+# App we're building
 
-## Task 2 - Connecting to a Database
+We're working on a server monitoring software. To check a production example - Please check out Fyipe.com.
 
-## Objectives
+**The app will:**
 
-- Learn how to connect to a database from the backend. 
-- Learn how to save and query data from your databse. 
-- Learn Authentication with Passport + JWT. 
+- Let users sign up and login.
+- When the user logs in - he is navigated to dashboard.
+- User can add one or more websites to monitor.
+- The app will check the website every minute and will let the user know when it's down.
+- The user will be alerted via email, call, SMS.
+- User can also attach his twitter account and the updates about the website will be posted there.
+- Dashobard will show the uptime percent from the day the `websites to monitor` were added and will also show the current status of the website - If its `Online` or `Offline`
 
-1. Project Summary
+### Why server monitoring?
 
-- This project uses PostgreSQL as the database and implements a very simple `Local Startegy` with PassportJS. This give a simple login and signup mechanism as any other service out on the internet.
-- Here's the schema of the user table in the database. 
-```
-id: Randomly Generated ID by the DB. 
-email: Email of the user. 
-password: Encrypted Password of the user. 
-```
+It covers most concepts to build an app - from relationships in the database, to workers, to third party API integration and more. You can finish the app fairly quickly and get a good understanding of all the concepts from `Web Development`
 
-2. User sign up API
+### FAQ
 
-- A POST API that takes in a user's email and password, saves those credentials in the User Table in the database and returns `{session: <token>}` as response.
-```
-Request Type: POST
-Route: /user/signup
-Request Body: {email: sample@sample.com, password: "SamplePassword"}
-Response Code: 200 
-Response Body: {session: <token>}
-```
+**How will the app look like?**
+If you have any questions on how the app will look like - Please check out Fyipe.com. Your mentor should give you a demo account for you to test things out.
 
-- Before saving a new user, the API checks for to ensure the email is not already existing. If it exists, it returns Status Code 400
- 
-```
-Request Type: POST
-Route: /user/signup
-Request Body: {email: sample@sample.com, password: "SamplePassword"}
-Response Code: 400 
-Response Body: {error: "User already exists."}
-```
+**Will I be building the exact clone?**
+No, That's months or years of work. You'll be building a very simple clone - with a simple UI and few API's.
 
-3. Login API
+**I have more questions - who do I ask?**
+If you're enrolled in the program - the best person to ask any question would be your mentor. IF you're not, please write to us at university@hackerbay.io
 
-- A POST API which takes in an email and password, validates those credentials with the User Table in the database and Returns `{session: <token>}` as response.
- 
-```
-Request Type: POST
-Route: /user/login
-Request Body: {email: sample@sample.com, password: "SamplePassword"}
-Response Code: 200 
-Response Body: {session: <token>}
-```
-
-- If user enters an invalid password, it returns a Status code of 400.
-
-```
-Request Type: POST
-Route: /user/login
-Request Body: {email: sample@sample.com, password: "WrongPassword"}
-Response Code: 400 
-Response Body: {error: "Invlaid Password"}
-```
-
-- If the user does not exists, API returns Status code 400.
-
-```
-Request Type: POST
-Route: /user/login
-Request Body: {email: invalidemail@sample.com, password: "SamplePassword"}
-Response Code: 400 
-Response Body: {error: "User does not exist."}
-```
- 
+**Can I build something else?**
+Yes. Please talk to your mentor and confirm your idea with him.
