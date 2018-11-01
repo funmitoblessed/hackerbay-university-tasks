@@ -14,7 +14,7 @@ const Sequelize = require('sequelize');
 const pg = require('pg'); // require postgres dependency
 
 // Connection for postgres
-const connection = process.env.DATABASE_URL || 'postgres://localhost:5432/blessed';
+const connection = process.env.DATABASE_URL || 'postgres://localhost:5432/postgres';
 // Instantiate Client for postgres database
 const client = new pg.Client(connection);
 // Connect to the client
@@ -24,7 +24,10 @@ const index = require('./routes/index');
 const user = require('./routes/user');
 
 // define new Sequelize connection and create table in database for storing user info
-const sequelize = new Sequelize('blessed', 'blessed', 'mvfDB918', {
+const sequelize = new Sequelize({
+    database: 'postgres',
+    username: 'blessed',
+    password: null,
     host: 'localhost',
     dialect: 'postgres'
 });
