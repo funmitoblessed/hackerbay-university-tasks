@@ -10,49 +10,12 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const Sequelize = require('sequelize');
-const pg = require('pg'); // require postgres dependency
-
-// Connection for postgres
-const connection = process.env.DATABASE_URL || 'postgres://localhost:5432/postgres';
-// Instantiate Client for postgres database
-const client = new pg.Client(connection);
-// Connect to the client
-client.connect();
-
+const connection = require('./models/user');
 const index = require('./routes/index');
 const user = require('./routes/user');
 
-// define new Sequelize connection
-const sequelize = new Sequelize({
-    database: 'postgres',
-    username: 'blessed',
-    password: null,
-    host: 'localhost',
-    dialect: 'postgres'
-});
-
-//  create models (table) in database for storing user info
-let User = sequelize.define('user', {
-    // the value of each property must be the data type it represents
-    email: {
-        type: Sequelize.STRING,
-        unique: true,
-        allowNull: false
-    },
-    password: {
-        type: Sequelize.TEXT,
-    }
-}, {
-    // disable timestamps option
-    timestamps: false
-});
-
-// Create associated tables to defined model
-sequelize.sync();
-
 // Authenticate connection
-sequelize
+connection
     .authenticate()
     .then(() => {
         console.log('Connection has been established successfully.');
