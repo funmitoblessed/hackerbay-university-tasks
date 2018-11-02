@@ -10,12 +10,12 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const connection = require('./models/user');
+const sequelize = require('./models/db');
 const index = require('./routes/index');
 const user = require('./routes/user');
 
 // Authenticate connection
-connection
+sequelize
     .authenticate()
     .then(() => {
         console.log('Connection has been established successfully.');

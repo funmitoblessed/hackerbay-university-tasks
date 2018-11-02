@@ -1,22 +1,6 @@
-const pg = require('pg'); // require postgres dependency
 const Sequelize = require('sequelize');
-let bcrypt = require('bcryptjs');
-
-// Connection for postgres
-const connect = process.env.DATABASE_URL || 'postgres://localhost:5432/postgres';
-// Instantiate Client for postgres database
-const client = new pg.Client(connect);
-// Connect to the client
-client.connect();
-
-// define new Sequelize connection
-const sequelize = new Sequelize({
-    database: 'postgres',
-    username: 'blessed',
-    password: null,
-    host: 'localhost',
-    dialect: 'postgres'
-});
+const bcrypt = require('bcryptjs');
+const sequelize = require('../models/db');
 
 //  create models (table) in database for storing user info
 let User = sequelize.define('user', {
@@ -36,8 +20,6 @@ let User = sequelize.define('user', {
 
 // Create associated tables to defined model
 sequelize.sync();
-
-
 
 // User functions
 module.exports.createUser = function(newUser, callback) {
@@ -65,4 +47,4 @@ module.exports.comparePassword = function(candidatePassword, hash, callback) {
     });
 }
 
-module.exports = sequelize;
+module.exports = User;

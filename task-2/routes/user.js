@@ -1,9 +1,14 @@
-let express = require('express');
-let router = express.Router();
-let passport = require('passport');
-let LocalStrategy = require('passport-local').Strategy;
+const express = require('express');
+const router = express.Router();
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+''
 
-let User = require('../models/user');
+
+// Get user model
+const User = require('../models/user');
 
 // User Signup
 router.get('/signup', function(req, res) {
