@@ -23,7 +23,7 @@ client.connect();
 const index = require('./routes/index');
 const user = require('./routes/user');
 
-// define new Sequelize connection and create table in database for storing user info
+// define new Sequelize connection
 const sequelize = new Sequelize({
     database: 'postgres',
     username: 'blessed',
@@ -32,8 +32,8 @@ const sequelize = new Sequelize({
     dialect: 'postgres'
 });
 
-// create Table
-let Table = sequelize.define('userinfo', {
+//  create models (table) in database for storing user info
+let User = sequelize.define('user', {
     // the value of each property must be the data type it represents
     email: {
         type: Sequelize.STRING,
@@ -48,7 +48,19 @@ let Table = sequelize.define('userinfo', {
     timestamps: false
 });
 
+// Create associated tables to defined model
 sequelize.sync();
+
+// Authenticate connection
+sequelize
+    .authenticate()
+    .then(() => {
+        console.log('Connection has been established successfully.');
+    })
+    .catch(err => {
+        console.error('Unable to connect to the database:', err);
+    });
+
 
 // Initialize app
 const app = express();
