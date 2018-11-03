@@ -18,7 +18,6 @@ router.get('/login', function(req, res) {
     res.render('login');
 });
 
-
 // Register new User 
 router.post('/signup', (req, res) => {
     let newUser = {
@@ -27,9 +26,22 @@ router.post('/signup', (req, res) => {
         password2: req.body.password2
     }
 
+    // Validation
+    req.checkBody('email', 'Email is required').notEmpty();
+    req.checkBody('email', 'Email is not valid').isEmail();
+    req.checkBody('password', 'Password is required').notEmpty();
+    req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
+
+    let errors = req.validationErrors();
+
+    if (errors) {
+        res.render('signup', {
+            errors: errors
+        });
+    }
     User.findOne({ where: { email: newUser.email } })
         .then(user => {
-            if (user) return res.status(400).json({ msg: 'User already exists' })
+            if (user) return res.status(400).json({ error: 'User already exists' })
             else {
                 User.create(newUser)
                     .then(user => {
@@ -46,6 +58,7 @@ router.post('/signup', (req, res) => {
         .catch(err => res.status(401).json(err));
 });
 
+// Login API
 router.post('/login', (req, res) => {
     let newUser = {
         email: req.body.email,
@@ -72,9 +85,5 @@ router.post('/login', (req, res) => {
         })
         .catch(err => res.status(401).json(err));
 })
-
-
-
-
 
 module.exports = router;
