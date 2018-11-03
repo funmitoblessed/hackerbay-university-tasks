@@ -21,9 +21,16 @@ let User = sequelize.define('user', {
 // Create associated tables to defined model
 // Does not update tables
 // Only creates a table that does not already exist
-sequelize.sync(
-    // { force: true } this object recreates the table each time it is called. USE WITH CAUTION!!!
-);
+sequelize
+    .sync(
+        // { force: true } this object recreates the table each time it is called. USE WITH CAUTION!!!
+    )
+    .then(function() {
+
+    })
+    .catch(function(error) {
+        console.log(error);
+    });
 
 // User functions
 User.beforeCreate((user, options) => {
@@ -58,4 +65,4 @@ module.exports.comparePassword = function(candidatePassword, hash, callback) {
     });
 }
 
-module.exports = User;
+module.exports = User
