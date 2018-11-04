@@ -15,14 +15,14 @@ let User = sequelize.define('user', {
     }
 }, {
     // disable timestamps option
-    timestamps: false
+    timestamps: true
 });
 
 // Create associated tables to defined model
 // Does not update tables
 // Only creates a table that does not already exist
 sequelize
-    .sync( // { force: true } // this object recreates the table each time it is called. USE WITH CAUTION!!!
+    .sync({ force: true } // this object recreates the table each time it is called. USE WITH CAUTION!!!
     )
     .then(function() {
 
@@ -32,11 +32,11 @@ sequelize
     });
 
 // User functions
-// User.beforeCreate((user, options) => {
-//     let salt = bcrypt.genSaltSync(10);
-//     let hash = bcrypt.hashSync(user.password, salt);
-//     return user.password = hash;
-// });
+User.beforeCreate((user, options) => {
+    let salt = bcrypt.genSaltSync(10);
+    let hash = bcrypt.hashSync(user.password, salt);
+    return user.password = hash;
+});
 
 
 module.exports.createUser = function(newUser, callback) {
@@ -64,4 +64,4 @@ module.exports.comparePassword = function(candidatePassword, hash, callback) {
     });
 }
 
-module.exports = User
+module.exports = User;
