@@ -20,11 +20,9 @@ router.get('/login', function(req, res) {
 
 // Register new User 
 router.post('/signup', (req, res) => {
-    let newUser = {
-        email: req.body.email,
-        password: req.body.password,
-        password2: req.body.password2
-    }
+    const email = req.body.email;
+    const password = req.body.password;
+    const password2 = req.body.password2
 
     // Validation
     req.checkBody('email', 'Email is required').notEmpty();
@@ -38,24 +36,50 @@ router.post('/signup', (req, res) => {
         res.render('signup', {
             errors: errors
         });
+    } else {
+        let newUser = new User({
+            email: req.body.email,
+            password: req.body.password
+        });
+
+        User.create(newUser, function(err) {
+            if (err) throw err;
+        });
+        console.log(newUser);
+
+        req.flash('success_msg', 'You are registered and can now log in');
+
+        res.redirect('login');
+
+
+
+        console.log('NO errors so far');
     }
-    User.findOne({ where: { email: newUser.email } })
-        .then(user => {
-            if (user) return res.status(400).json({ error: 'User already exists' })
-            else {
-                User.create(newUser)
-                    .then(user => {
-                        let payload = {
-                            email: user.email,
-                            password: user.password
-                        };
-                        jwt.sign(payload, 'secret', { expiresIn: '1h' }, (err, token) => {
-                            res.json({ session: token })
-                        });
-                    })
-            }
-        })
-        .catch(err => res.status(401).json(err));
+
+
+
+
+    // COMMENT OUT FOR NOW
+    // User.findOne({ where: { email: newUser.email } })
+    //     .then(user => {
+    //         if (user) return res.status(400).json({ error: 'User already exists' })
+    //         else {
+    //             User.create(newUser)
+    //                 .then(user => {
+    //                     let payload = {
+    //                         email: user.email,
+    //                         password: user.password
+    //                     };
+    //                     jwt.sign(payload, 'secret', { expiresIn: '1h' }, (err, token) => {
+    //                         res.json({ session: token })
+    //                     });
+    //                 })
+    //         }
+    //     })
+    //     .catch(err => res.status(401).json(err));
+    //COMMENT OUT FOR NOW
+
+
 });
 
 // Login API
@@ -89,6 +113,14 @@ router.post('/login', (req, res) => {
 // Passport
 passport.use(new LocalStrategy(
     function(email, password, done) {
+        User.createUser = function(newUser, callback) {
+            bcrypt.genSalt(10, function(err, salt) {
+                bcrypt.hash(newUser.password, salt, function(err, hash) {
+                    newUser.password = hash;
+                    newUser.save(callback);
+                });
+            });
+        }
         User.getUserByEmail(email, function(err, user) {
             if (err) throw err;
             if (!user) {
@@ -105,5 +137,7 @@ passport.use(new LocalStrategy(
             });
         });
     }));
+
+
 
 module.exports = router;

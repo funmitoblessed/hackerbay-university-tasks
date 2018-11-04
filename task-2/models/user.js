@@ -8,7 +8,7 @@ let User = sequelize.define('user', {
     email: {
         type: Sequelize.STRING,
         unique: true,
-        allowNull: false
+        // allowNull: false
     },
     password: {
         type: Sequelize.STRING
@@ -22,8 +22,7 @@ let User = sequelize.define('user', {
 // Does not update tables
 // Only creates a table that does not already exist
 sequelize
-    .sync(
-        // { force: true } this object recreates the table each time it is called. USE WITH CAUTION!!!
+    .sync( // { force: true } // this object recreates the table each time it is called. USE WITH CAUTION!!!
     )
     .then(function() {
 
@@ -33,11 +32,11 @@ sequelize
     });
 
 // User functions
-User.beforeCreate((user, options) => {
-    let salt = bcrypt.genSaltSync(10);
-    let hash = bcrypt.hashSync(user.password, salt);
-    return user.password = hash;
-});
+// User.beforeCreate((user, options) => {
+//     let salt = bcrypt.genSaltSync(10);
+//     let hash = bcrypt.hashSync(user.password, salt);
+//     return user.password = hash;
+// });
 
 
 module.exports.createUser = function(newUser, callback) {
