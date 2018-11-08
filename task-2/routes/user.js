@@ -21,12 +21,9 @@ router.get('/login', function(req, res) {
 
 // Register new User 
 router.post('/signup', (req, res) => {
-    let newUser = {
-        email: req.body.email,
-        password: req.body.password,
-        password2: req.body.password2
-    };
-
+    let email = req.body.email,
+        password = req.body.password,
+        password2 = req.body.password2
 
     // Validation
     req.checkBody('email', 'Email is required').notEmpty();
@@ -41,7 +38,7 @@ router.post('/signup', (req, res) => {
             errors: errors
         });
     } else {
-        console.log('NO errors so far', newUser);
+        console.log('NO errors so far', email, password, password2);
     }
 
 

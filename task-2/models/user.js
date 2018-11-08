@@ -4,11 +4,16 @@ const sequelize = require('../models/db');
 
 //  create models (table) in database for storing user info
 let User = sequelize.define('user', {
+    id: {
+        type: Sequelize.UUID,
+        primaryKey: true,
+        defaultValue: Sequelize.UUIDV4
+    },
     // the value of each property must be the data type it represents
     email: {
         type: Sequelize.STRING,
         unique: true,
-        // allowNull: false
+        allowNull: false
     },
     password: {
         type: Sequelize.STRING
@@ -22,7 +27,8 @@ let User = sequelize.define('user', {
 // Does not update tables
 // Only creates a table that does not already exist
 sequelize
-    .sync({ force: true } // this object recreates the table each time it is called. USE WITH CAUTION!!!
+    .sync(
+        // { force: true } // this object recreates the table each time it is called. USE WITH CAUTION!!!
     )
     .then(function() {
 
@@ -38,7 +44,10 @@ User.beforeCreate((user, options) => {
     return user.password = hash;
 });
 
+module.exports = User;
 
+
+// Modules to Export
 module.exports.createUser = function(newUser, callback) {
     bcrypt.genSalt(10, function(err, salt) {
         bcrypt.hash(newUser.password, salt, function(err, hash) {
@@ -47,21 +56,16 @@ module.exports.createUser = function(newUser, callback) {
         });
     });
 }
-
 module.exports.getUserByEmail = function(email, callback) {
     let query = { email: email };
     User.findOne(query, callback);
 }
-
 module.exports.getUserById = function(id, callback) {
     User.findById(id, callback);
 }
-
 module.exports.comparePassword = function(candidatePassword, hash, callback) {
     bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
         if (err) throw err;
         callback(null, isMatch);
     });
 }
-
-module.exports = User;
