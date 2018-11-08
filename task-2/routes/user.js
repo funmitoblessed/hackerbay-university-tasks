@@ -21,9 +21,12 @@ router.get('/login', function(req, res) {
 
 // Register new User 
 router.post('/signup', (req, res) => {
-    let email = req.body.email;
-    let password = req.body.password;
-    let password2 = req.body.password2;
+    let newUser = {
+        email: req.body.email,
+        password: req.body.password,
+        password2: req.body.password2
+    };
+
 
     // Validation
     req.checkBody('email', 'Email is required').notEmpty();
@@ -38,32 +41,7 @@ router.post('/signup', (req, res) => {
             errors: errors
         });
     } else {
-        User.findOne({ email: user.email })
-            .then(user => {
-                if (user) return res.status(400).json({ msg: 'Email already exists' })
-                else {
-                    let newUser = new User({
-                        email: req.body.email,
-                        password: req.body.password
-                    });
-
-                    User.create(newUser)
-                        .then(user => {
-                            let payload = {
-                                email: newUser.email,
-                                password: newUser.password
-                            }
-                            console.log(payload);
-                        });
-
-                    req.flash('success_msg', 'You are registered and can now log in');
-
-                    res.redirect('login');
-
-                    console.log('NO errors so far');
-                }
-            })
-            .catch(err => res.status(401).json(err));
+        console.log('NO errors so far', newUser);
     }
 
 
