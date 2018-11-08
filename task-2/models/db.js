@@ -11,9 +11,9 @@ client.connect();
 
 // define new Sequelize connection
 const sequelize = new Sequelize({
-    database: 'postgres',
+    database: 'blessed',
     username: 'blessed',
-    password: null,
+    password: 'mvfDB918',
     host: 'localhost',
     dialect: 'postgres'
 });

@@ -38,10 +38,29 @@ router.post('/signup', (req, res) => {
             errors: errors
         });
     } else {
-        console.log('NO errors so far', email, password, password2);
+        User.findOne({ where: { email: email } })
+            .then(user => {
+                if (user) return res.status(400).json({ error: 'User already exists' })
+                else {
+                    let newUser = new User({
+                        email: email,
+                        password: password
+                    });
+                    User.create(newUser)
+                        .then(user => {
+                            let payload = {
+                                email: email,
+                                password: password
+                            };
+                            console.log('NO errors so far', payload);
+                            jwt.sign(payload, 'secret', { expiresIn: '1h' }, (err, token) => {
+                                res.json({ session: token })
+                            });
+                        })
+                }
+            })
+            .catch(err => res.status(401).json(err));
     }
-
-
 
 
     // COMMENT OUT FOR NOW
@@ -122,7 +141,5 @@ passport.use(new LocalStrategy(
             });
         });
     }));
-
-
 
 module.exports = router;
