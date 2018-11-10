@@ -19,7 +19,7 @@ let User = sequelize.define('user', {
         type: Sequelize.STRING
     }
 }, {
-    // disable timestamps option
+    // timestamps option
     timestamps: true
 });
 
@@ -28,13 +28,7 @@ let User = sequelize.define('user', {
 // Only creates a table that does not already exist
 sequelize
     .sync( // { force: true } // this object recreates the table each time it is called. USE WITH CAUTION!!!
-    )
-    .then(function() {
-
-    })
-    .catch(function(error) {
-        console.log(error);
-    });
+    );
 
 // User functions
 // User.beforeCreate((user, options) => {

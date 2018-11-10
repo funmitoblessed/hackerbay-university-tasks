@@ -40,6 +40,7 @@ router.post('/signup', (req, res) => {
     } else {
         User.findOne({ where: { email: email } })
             .then(user => {
+                console.log(user);
                 if (user) return res.status(400).json({ error: 'User already exists' })
                 else {
                     let newUser = new User({
@@ -52,6 +53,7 @@ router.post('/signup', (req, res) => {
                                 email: email,
                                 password: password
                             };
+                            console.log(User.create(newUser));
                             console.log('NO errors so far', payload);
                             jwt.sign(payload, 'secret', { expiresIn: '1h' }, (err, token) => {
                                 res.json({ session: token })
