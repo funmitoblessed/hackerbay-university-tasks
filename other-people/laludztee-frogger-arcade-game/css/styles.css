@@ -1,0 +1,124 @@
+body {
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        background: url(../images/geometry2.png);
+        overflow-y: hidden;
+}
+
+.points {
+        font-size: 30px;
+        color: green;
+        -webkit-backface-visibility: visible !important;
+        backface-visibility: visible !important;
+}
+
+.show {
+        visibility: visible !important;
+        opacity: 100 !important;
+}
+
+.hidden {
+        background: rgba(0, 0, 0, 0);
+        opacity: 0;
+        top: -999px;
+}
+
+.scoreLevel {
+        position: absolute;
+        display: none;
+        width: 20%;
+        height: 30%;
+        color: black;
+        font-family: Montserrat;
+        font-size: 4vh;
+        font-weight: 1000;
+        margin-top: 15%;
+        margin-left: 5%;
+        padding: 15px;
+        border: 2px solid cornflowerblue;
+        border-radius: 3px;
+        flex-direction: column;
+        background: linear-gradient(#1D6FDB, #D7E0D8, #4BCC54);
+}
+
+.modal {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: url(../images/geometry2.png);
+}
+
+.modal-body {
+	font-family: Montserrat;
+	text-align: center;
+	padding: 0;
+	font-size: 1.1em;
+}
+
+.modal-title {
+	margin: 0;
+	padding: 0;
+	font-size: 1.3em;
+	font-weight: 900;
+}
+
+.modal-subtitle {
+	font-size: 1.1em;
+	font-weight: 700;
+}
+
+#close-modal {
+	display: none;
+	width: 700px;
+	height: 570px;
+        color: black;
+        font-family: Montserrat;
+        font-size: 4vh;
+	font-weight: 700;
+        margin: 3% auto;
+        padding: 15px;
+        border: 2px solid cornflowerblue;
+        border-radius: 20px;
+	background: linear-gradient(#1D6FDB, #D7E0D8, #4BCC54);
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flexbox;
+	display: -ms-flexbox;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+.wrap {
+	width: 700px;
+	height: 570px;
+	margin: 3% auto;
+	background: linear-gradient(#1D6FDB, #D7E0D8, #4BCC54);
+	border-radius: 20px;
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flexbox;
+	display: -ms-flexbox;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+ul {
+	list-style-type: none;
+	padding: 10px;
+}
+
+.play-button {
+	text-transform: uppercase;
+	font-weight: 700;
+	background: steelblue;
+	color: black;
+	letter-spacing: 5px;
+	font-size: inherit;
+	transition: all 0.4s;
+	-webkit-transition: all 0.4s;
+	-moz-transition: all 0.4s;
+	outline: none;
+	border-radius: 15px;
+	cursor: pointer;
+}
