@@ -1,2 +1,0 @@
-# Hackerbay-tasks
-
